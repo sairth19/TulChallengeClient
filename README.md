@@ -1,5 +1,7 @@
 # CartsClient
 
+### Este proyecto se hizo con el fin de interactuar con el proyecto TulChallenge de forma sencilla. Por favor no tener en cuenta este codigo
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
 
 ## Development server
