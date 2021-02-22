@@ -1,0 +1,67 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <h4 class="text-center">Product List</h4>
+            <div *ngIf="productsLoaded; then productBlock else loadingBlock"></div>
+            <ng-template #productBlock>
+                <ul>
+                    <li *ngFor="let product of productList">{{product.name}} - <a href="#" (click)="selectProduct(product)">See details</a></li>
+                </ul>    
+            </ng-template>
+            <ng-template #loadingBlock>
+                <h4 class="text-center">Loading products ...</h4>
+            </ng-template>
+        </div>
+        <div class="col-md-4 text-center">
+
+            <div *ngIf="seeingDetails; then editingBlock else emptyBlock"></div>
+            <ng-template #editingBlock>
+                <h4 class="text-center">{{ selectedItem.name }}</h4>
+                <p>
+                    {{ selectedItem.description }}
+                </p>
+                <p>
+                    SKU: {{ selectedItem.sku }}
+                </p>
+
+                <p>
+                    Current order: {{ productToAdd.quantity }} 
+                    <button (click)="productToAdd.add()" class="btn btn-primary btn-sm">+</button>&nbsp;
+                    <button (click)="productToAdd.remove()" class="btn btn-danger btn-sm">-</button>
+                </p>
+                <p>
+                    <button (click)="addToCart()" class="btn btn-success btn-sm" [disabled]="productToAdd.quantity < 1">Add to cart</button>&nbsp;
+                </p>
+
+
+            </ng-template>
+            <ng-template #emptyBlock>
+                <h4 class="text-center">Select a product to see details</h4>
+            </ng-template>
+
+        </div>
+        <div class="col-md-4 text-center">
+            <h4 class="text-center">Your current cart</h4>
+
+            <div *ngIf="cartLoaded">
+                <div *ngIf="cart.products.length > 0; then cartBlock else emptyCartBlock"></div>
+                <ng-template #cartBlock>
+                    <ul>
+                        <li *ngFor="let product of cart.products">{{product.name}} - {{product.quantity}}&nbsp;
+                            <a href="#" (click)="editProduct(product)">Edit</a> &nbsp; 
+                            <a href="#" (click)="removeProduct(product)">Delete</a></li>
+                    </ul>
+
+                    <button (click)="checkout()" class="btn btn-success btn-sm" [disabled]="cart.products < 1">Checkout</button>&nbsp;
+                </ng-template>
+                <ng-template #emptyCartBlock>
+                    <p class="text-center">
+                        Your cart is empty
+                    </p>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+</div>
+
